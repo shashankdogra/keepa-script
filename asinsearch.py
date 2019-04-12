@@ -7,6 +7,15 @@ import requests
 import numpy as np
 accesskey = 'xxx' # <-- replace xxx with your keepa api access key
 api = keepa.Keepa(accesskey)
+
+'''
+You can query using ISBN-10 or ASIN like the above example by default, or by using UPC,
+EAN, and ISBN-13 codes by setting product_code_is_asin to False:
+
+products = api.query('978-0786222728', product_code_is_asin=False)
+
+'''
+
 asins = ['B01N5ML1EA', 'B00THPUHPM', 'B01M8IKE7Y', 'B01IQCN744']
 asins = np.asarray(['B01N5ML1EA', 'B00THPUHPM', 'B01M8IKE7Y', 'B01IQCN744'])
 products = api.query(asins)
