@@ -5,7 +5,7 @@ logging.basicConfig()
 import datetime
 import requests
 import numpy as np
-accesskey = 'xxx' # enter real access key here
+accesskey = 'xxx' # <-- replace xxx with your keepa api access key
 api = keepa.Keepa(accesskey)
 asins = ['B01N5ML1EA', 'B00THPUHPM', 'B01M8IKE7Y', 'B01IQCN744']
 asins = np.asarray(['B01N5ML1EA', 'B00THPUHPM', 'B01M8IKE7Y', 'B01IQCN744'])
