@@ -109,8 +109,10 @@ for x in range(len(upcs)):
     import csv
     with open('output.csv', "a") as output_file:
             output_writer = csv.writer(output_file, delimiter=',', quotechar='"', lineterminator='\n')
-            #output_writer.writerow(['UPC','ASIN','Title','No. of Offers','Current Sales Rank'])
-            output_writer.writerow([sku_value, upc_value , asin_value ,title_value,noOfOffers_value,salesrank_value,current_price])
+            try:
+              output_writer.writerow([sku_value,upc_value,asin_value,title_value,noOfOffers_value,salesrank_value,current_price])
+            except:
+              pass  
 #File transfer to the ftp initiated
 ftp = ftplib.FTP('ftp.altatac2.com', 'keepa@altatac2.com' , 'Keepa532')
 ftp.cwd('/keepaoutput')
