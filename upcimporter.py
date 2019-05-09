@@ -53,8 +53,19 @@ with open('output.csv', "w") as output_file:
             output_writer = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL, lineterminator='\n')
             output_writer.writerow(['SKU','UPC','ASIN','Title','No. of Offers','Current Sales Rank','Current Price'])
 print 'Keepa Pull Initiated ...'
+asin_value = 'Empty'
+title_value = 'Empty'
+noOfOffers_value = 'Empty'
+salesrank_value = 'Empty'
+current_price = 'Empty'
+
 for x in range(len(upcs)):
     try:
+        asin_value = 'Empty'
+        title_value = 'Empty'
+        noOfOffers_value = 'Empty'
+        salesrank_value = 'Empty'
+        current_price = 'Empty'
         print '========================================================================================'
         print 'product Number:'
         print x
@@ -112,11 +123,15 @@ for x in range(len(upcs)):
             try:
               output_writer.writerow([sku_value,upc_value,asin_value,title_value,noOfOffers_value,salesrank_value,current_price])
             except:
-              pass  
+              output_writer.writerow([sku_value,upc_value,"No ASIN FOUND","No TITLE FOUND","No Offers","No Sales Rank","No Price"])  
 #File transfer to the ftp initiated
+print '\n\nNow uploading Files to the FTP'
+print '...'
+
 ftp = ftplib.FTP('ftp.altatac2.com', 'keepa@altatac2.com' , 'Keepa532')
 ftp.cwd('/keepaoutput')
 ftp.dir()
 fp = open("output.csv", 'rb')
 ftp.storbinary('STOR %s' % os.path.basename("output.csv"), fp, 1024)
 fp.close()
+print '\n\n ---------------------All Done. ------------------------'
