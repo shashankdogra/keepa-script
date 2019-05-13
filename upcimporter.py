@@ -10,6 +10,7 @@ import pandas
 import io
 import os
 import ftplib
+from datetime import datetime
 #Open ftp connection
 ftp = ftplib.FTP('ftp.altatac2.com', 'keepa@altatac2.com' , 'Keepa532')
 files = ftp.dir()
@@ -58,12 +59,15 @@ title_value = 'Empty'
 noOfOffers_value = 'Empty'
 salesrank_value = 'Empty'
 current_price = 'Empty'
-
+print '\nTime of Initialization ..\n'
+print '\n'
+print datetime.now()
+print '\n-----------------------------------------------------\n'
 for x in range(len(upcs)):
     try:
         asin_value = 'Empty'
         title_value = 'Empty'
-        noOfOffers_value = 'Empty'
+        noOfOffers_value = 'Not Pulling Info'
         salesrank_value = 'Empty'
         current_price = 'Empty'
         print '========================================================================================'
@@ -80,9 +84,10 @@ for x in range(len(upcs)):
         print sku_value
         print '\n'
         product = products[0]
-        offers = product['offers']
-        offer = offers[0]
-        csv = offer['offerCSV']
+        #offers = product['offers']
+        #offer = offers[0]
+        #csv = offer['offerCSV']
+        
         # printing the sales rank
         key = 'SALES'
         history = product['data']
@@ -100,13 +105,13 @@ for x in range(len(upcs)):
         print ('Sales Rank is: ')
         print sales[-1]
         salesrank_value = sales[-1]
-        print ('Number of Offers: ')
-        try:
-            print len(product['liveOffersOrder'])
-            noOfOffers_value = len(product['liveOffersOrder'])
-        except:
-            print 'No Offers'
-            noOfOffers_value = 'No Offers'
+        #print ('Number of Offers: ')
+        #try:
+        #    print len(product['liveOffersOrder'])
+        #    noOfOffers_value = len(product['liveOffersOrder'])
+        #except:
+        #    print 'No Offers'
+        #    noOfOffers_value = 'No Offers'
         #Current best buy box price
         newprice = product['data']['BUY_BOX_SHIPPING']
         print '\n BuyBox Price is:'
@@ -134,4 +139,7 @@ ftp.dir()
 fp = open("output.csv", 'rb')
 ftp.storbinary('STOR %s' % os.path.basename("output.csv"), fp, 1024)
 fp.close()
-print '\n\n ---------------------All Done. ------------------------'
+print '\nTimestamp at End ..\n'
+print '\n'
+print datetime.now()
+print '\n\n --------------------- All Done. ------------------------'
